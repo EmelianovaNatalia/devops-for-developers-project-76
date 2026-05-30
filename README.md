@@ -3,23 +3,20 @@
 
 # DevOps Infrastructure Project
 
-Проект разворачивает инфраструктуру с двумя серверами, балансировщиком и БД.
-
-## Инфраструктура
-- vm1 (192.168.252.2) — App сервер 1 с Docker
-- vm2 (192.168.252.3) — App сервер 2 с Docker  
-- vm3 (192.168.252.4) — HAProxy балансировщик + PostgreSQL
+## Ссылка на приложение
+http://192.168.252.4
 
 ## Требования
-- Ansible
-- ansible-galaxy роли (см. requirements.yml)
+- Ansible >= 2.12
+- Python >= 3.8
+- Доступ по SSH к серверам
 
 ## Установка зависимостей
 ```bash
 make install
 ```
 
-## Подготовка серверов
+## Подготовка серверов (установка Docker, pip)
 ```bash
 make prepare
 ```
@@ -36,7 +33,11 @@ make encrypt-vault
 
 # Редактировать vault
 make edit-vault
+
+# Расшифровать vault
+make decrypt-vault
 ```
 
-## Приложение
-Redmine доступен по адресу: http://192.168.252.4
+## Переменные
+Все переменные описаны в `group_vars/webservers/vars.yml`.
+Секреты хранятся в зашифрованном файле `group_vars/webservers/vault.yml`.

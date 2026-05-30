@@ -1,5 +1,3 @@
-redmine_port: 3000
-
 # Фикс для geerlingguy.docker на Ubuntu 24.04
 docker_packages_dependencies:
   - apt-transport-https
