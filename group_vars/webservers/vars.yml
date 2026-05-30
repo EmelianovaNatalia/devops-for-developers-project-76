@@ -1,0 +1,18 @@
+redmine_port: 3000
+
+db_host: "192.168.252.4"
+db_name: "appdb"
+db_user: "appuser"
+db_password: "{{ vault_db_password }}"
+
+datadog_api_key: "{{ vault_datadog_api_key }}"
+
+datadog_checks:
+  http_check:
+    instances:
+      - name: "vm1 app check"
+        url: "http://192.168.252.2:{{ redmine_port }}"
+        timeout: 5
+      - name: "vm2 app check"
+        url: "http://192.168.252.3:{{ redmine_port }}"
+        timeout: 5

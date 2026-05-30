@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become: true
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+- hosts: webservers
+  become: true
+
+  tasks:
+    - name: Create .env file from template
+      ansible.builtin.template:
+        src: templates/.env.j2
+        dest: /home/ubuntu/.env
+        mode: '0600'
+      tags: deploy
+
+    - name: Run Redmine container
+      community.docker.docker_container:
+        name: redmine
+        image: redmine:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ redmine_port }}:3000"
+        env_file: /home/ubuntu/.env
+      tags: deploy
+
+    - name: Install Datadog agent
+      include_role:
+        name: datadog.datadog
+      vars:
+        datadog_api_key: "{{ vault_datadog_api_key }}"
+        datadog_checks:
+          http_check:
+            instances:
+              - name: "App health check"
+                url: "http://localhost:{{ redmine_port }}"
+                timeout: 5
+      tags: monitoring
