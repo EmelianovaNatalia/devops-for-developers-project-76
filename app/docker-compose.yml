@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "80:5000"
+    environment:
+      - DB_HOST=192.168.56.13
+      - DB_USER=appuser
+      - DB_PASS=secret123
+      - DB_NAME=appdb
+    restart: always
