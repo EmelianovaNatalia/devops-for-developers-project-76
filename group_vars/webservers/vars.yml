@@ -1,5 +1,12 @@
 redmine_port: 3000
 
+# Фикс для geerlingguy.docker на Ubuntu 24.04
+docker_packages_dependencies:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+
 db_host: "192.168.252.4"
 db_name: "appdb"
 db_user: "appuser"

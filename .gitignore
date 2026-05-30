@@ -1,0 +1,15 @@
+# Vagrant
+.vagrant/
+*.box
+
+# Ansible
+*.retry
+tmp/
+
+# macOS
+.DS_Store
+
+# Secrets (на всякий случай, vault уже зашифрован)
+*.pem
+*.key
+.env
