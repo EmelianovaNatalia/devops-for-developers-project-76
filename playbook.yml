@@ -5,6 +5,11 @@
   vars:
     pip_install_packages:
       - name: docker
+    docker_packages_dependencies:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
 
   roles:
     - geerlingguy.pip
